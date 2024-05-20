@@ -1,5 +1,5 @@
 import requests
-import mysql.connector
+import pymysql
 from datetime import datetime
 import time
 
@@ -12,7 +12,7 @@ config = {
 }
 
 # Connect to the MySQL server
-connection = mysql.connector.connect(**config)
+connection = pymysql.connect(**config)
 
 # Now you can use the connection object
 if connection.is_connected():
@@ -92,7 +92,7 @@ def main():
 # Function to insert or update data in MySQL
 def insert_update_mysql(data):
     try:
-        connection = mysql.connector.connect(**config)
+        connection = pymysql.connect(**config)
         cursor = connection.cursor()
         query = """
         INSERT INTO products_on_takealotv3 (
@@ -164,7 +164,7 @@ def insert_update_mysql(data):
             )
             cursor.execute(query, values)
         connection.commit()
-    except mysql.connector.Error as e:
+    except pymysql.Error as e:
         print("Error in MySQL operation: ", e)
     finally:
         if connection.is_connected():
